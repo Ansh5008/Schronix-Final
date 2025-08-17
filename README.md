@@ -1,1 +1,1 @@
-# Schronix-Final
+# schronix
