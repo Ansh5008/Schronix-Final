@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Crown, Code, Database, TrendingUp } from "lucide-react";
+import teamLeaderImage from "@/assets/team-leader.webp";
 
 interface TeamSectionProps {
   isActive: boolean;
@@ -48,7 +49,7 @@ export default function TeamSection({ isActive }: TeamSectionProps) {
       color: "from-schronix-primary to-schronix-secondary",
       tags: ["Leadership", "Strategy"],
       isLeader: true,
-      image: "/images/team-leader.jpg",
+      image: teamLeaderImage,
     },
     {
       name: "Ansh Kumar",
@@ -58,7 +59,7 @@ export default function TeamSection({ isActive }: TeamSectionProps) {
       color: "from-schronix-accent to-schronix-primary",
       tags: ["React", "UI/UX"],
       isLeader: false,
-      image: "/images/ansh.jpg",
+      image: null as string | null, // Placeholder - no image available
     },
     {
       name: "Prakhar Dhaundhiyal",
@@ -68,7 +69,7 @@ export default function TeamSection({ isActive }: TeamSectionProps) {
       color: "from-schronix-secondary to-schronix-accent",
       tags: ["Node.js", "APIs"],
       isLeader: false,
-      image: "/images/prakhar.jpg",
+      image: null as string | null, // Placeholder - no image available
     },
     {
       name: "Indransh Pratap Singh",
@@ -78,7 +79,7 @@ export default function TeamSection({ isActive }: TeamSectionProps) {
       color: "from-schronix-primary to-schronix-warning",
       tags: ["Analytics", "ML"],
       isLeader: false,
-      image: "/images/indransh.jpg",
+      image: null as string | null, // Placeholder - no image available
     },
   ];
 
@@ -197,12 +198,18 @@ export default function TeamSection({ isActive }: TeamSectionProps) {
               <Card className="hover:shadow-xl transition-all duration-300 hover:-translate-y-1 max-w-sm" data-testid="card-team-leader">
                 <CardContent className="p-8 text-center">
                   <div className="w-24 h-24 rounded-full mx-auto mb-6 overflow-hidden border-4 border-white shadow-lg">
-                    <img
-                      src={teamMembers[0].image}
-                      alt="Vansh Sharma - Team Leader"
-                      className="w-full h-full object-cover"
-                      data-testid="img-team-leader-avatar"
-                    />
+                    {teamMembers[0].image ? (
+                      <img
+                        src={teamMembers[0].image}
+                        alt="Vansh Sharma - Team Leader"
+                        className="w-full h-full object-cover"
+                        data-testid="img-team-leader-avatar"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gradient-to-br from-schronix-primary to-schronix-secondary flex items-center justify-center">
+                        <Crown className="w-10 h-10 text-white" />
+                      </div>
+                    )}
                   </div>
                   <h4
                     className="text-xl font-bold text-schronix-grey-800 mb-2"
@@ -263,13 +270,19 @@ export default function TeamSection({ isActive }: TeamSectionProps) {
                 >
                   <Card className="hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                     <CardContent className="p-8 text-center">
-                      {/* ✅ Changed from icon block to image */}
                       <div className="w-20 h-20 rounded-full mx-auto mb-6 overflow-hidden border-4 border-white shadow-lg">
-                        <img
-                          src={member.image}
-                          alt={`${member.name} - ${member.role}`}
-                          className="w-full h-full object-cover"
-                        />
+                        {member.image ? (
+                          <img
+                            src={member.image}
+                            alt={`${member.name} - ${member.role}`}
+                            className="w-full h-full object-cover"
+                            data-testid={`img-team-member-avatar-${index}`}
+                          />
+                        ) : (
+                          <div className={`w-full h-full bg-gradient-to-br ${member.color} flex items-center justify-center`}>
+                            <member.icon className="w-8 h-8 text-white" />
+                          </div>
+                        )}
                       </div>
 
                       <h4
