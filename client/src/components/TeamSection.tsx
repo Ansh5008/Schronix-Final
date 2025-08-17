@@ -48,7 +48,7 @@ export default function TeamSection({ isActive }: TeamSectionProps) {
       color: "from-schronix-primary to-schronix-secondary",
       tags: ["Leadership", "Strategy"],
       isLeader: true,
-      image: "/images/team-leader.jpg",
+      image: "/images/team-leader-new.jpg",
     },
     {
       name: "Ansh Kumar",
