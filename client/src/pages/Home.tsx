@@ -121,7 +121,7 @@ function FlowingLines({ sectionIndex = 0 }) {
 
 export default function Home() {
   const [currentSection, setCurrentSection] = useState(0);
-  const [isVisible, setIsVisible] = useState([true, false, false, false, false]);
+  const [isVisible, setIsVisible] = useState([true, false, false, false]);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolling, setIsScrolling] = useState(false);
   const [typedTagline, setTypedTagline] = useState('');
@@ -170,19 +170,16 @@ export default function Home() {
       
       if (scrollPosition < windowHeight * 0.8) {
         newSection = 0;
-        newVisibility = [true, false, false, false, false];
+        newVisibility = [true, false, false, false];
       } else if (scrollPosition < windowHeight * 1.8) {
         newSection = 1;
-        newVisibility = [false, true, false, false, false];
+        newVisibility = [false, true, false, false];
       } else if (scrollPosition < windowHeight * 2.8) {
         newSection = 2;
-        newVisibility = [false, false, true, false, false];
-      } else if (scrollPosition < windowHeight * 3.8) {
-        newSection = 3;
-        newVisibility = [false, false, false, true, false];
+        newVisibility = [false, false, true, false];
       } else {
-        newSection = 4;
-        newVisibility = [false, false, false, false, true];
+        newSection = 3;
+        newVisibility = [false, false, false, true];
       }
       
       if (newSection !== currentSection) {
@@ -199,7 +196,7 @@ export default function Home() {
     const element = sectionsRef.current[index];
     if (element) {
       // Update visibility state immediately when navigating
-      const newVisibility = [false, false, false, false, false];
+      const newVisibility = [false, false, false, false];
       newVisibility[index] = true;
       setIsVisible(newVisibility);
       setCurrentSection(index);
@@ -253,17 +250,11 @@ export default function Home() {
                 >
                   How it Works
                 </button>
+
                 <button 
                   onClick={() => scrollToSection(3)} 
-                  className="text-gray-700 hover:bg-gray-100 hover:text-gray-900 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ease-in-out transform hover:scale-105 animate-slide-in"
-                  style={{ animationDelay: '0.4s' }}
-                >
-                  Team
-                </button>
-                <button 
-                  onClick={() => scrollToSection(4)} 
                   className="bg-gray-800 text-white hover:bg-gray-700 px-6 py-2 rounded-lg text-sm font-medium transition-all duration-300 ease-in-out transform hover:scale-105 shadow-md hover:shadow-lg animate-slide-in"
-                  style={{ animationDelay: '0.5s' }}
+                  style={{ animationDelay: '0.4s' }}
                 >
                   Get Started
                 </button>
@@ -320,18 +311,10 @@ export default function Home() {
             >
               How it Works
             </button>
+
             <button
               onClick={() => {
                 scrollToSection(3);
-                setIsMobileMenuOpen(false);
-              }}
-              className="text-gray-700 hover:bg-gray-100 hover:text-gray-900 block px-4 py-3 rounded-lg text-base font-medium w-full text-left transition-all duration-300"
-            >
-              Team
-            </button>
-            <button
-              onClick={() => {
-                scrollToSection(4);
                 setIsMobileMenuOpen(false);
               }}
               className="bg-gray-800 text-white hover:bg-gray-700 block px-4 py-3 rounded-lg text-base font-medium w-full text-left transition-all duration-300 mt-2"
@@ -526,72 +509,16 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Section 4: Team */}
+      {/* Section 4: Upload */}
       <div 
         ref={el => sectionsRef.current[3] = el}
-        className="min-h-screen bg-gradient-to-r from-gray-400 via-gray-300 to-gray-200 relative overflow-hidden flex items-center justify-center"
-        data-testid="team-section"
-      >
-        <FlowingLines sectionIndex={3} />
-        
-        <div className="relative z-10 text-center max-w-6xl mx-auto px-6">
-          <div className={`transition-all duration-1000 ${isVisible[3] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            <h2 
-              className="text-4xl md:text-6xl font-bold text-gray-800 mb-16 drop-shadow-sm"
-              data-testid="text-team-title"
-            >
-              Our Team
-            </h2>
-            
-            <div className="mb-12">
-              {/* Team Leader - Centered */}
-              <div className="flex justify-center mb-8">
-                <Card className="team-card p-8 animate-slide-in-left delay-200 max-w-sm transition-all duration-300" data-testid="card-team-leader">
-                  <div className="text-center">
-                    <div className="w-20 h-20 bg-gray-300 rounded-full mx-auto mb-4 animate-float"></div>
-                    <h3 className="text-xl font-semibold text-gray-800 mb-2" data-testid="text-leader-name">Vansh Sharma</h3>
-                    <p className="text-gray-600" data-testid="text-leader-role">Team Leader</p>
-                  </div>
-                </Card>
-              </div>
-
-              {/* Team Members - In a line below */}
-              <div className="grid md:grid-cols-3 gap-8">
-                {[
-                  { name: "Ansh Kumar", role: "Developer" },
-                  { name: "Prakhar Dhaundhiyal", role: "Developer" },
-                  { name: "Indransh Pratap Singh", role: "Developer" },
-                ].map((member, index) => (
-                  <Card 
-                    key={member.name}
-                    className="team-card p-8 animate-slide-in-right transition-all duration-300"
-                    style={{ animationDelay: `${(index + 1) * 0.2}s` }}
-                    data-testid={`card-team-member-${index}`}
-                  >
-                    <div className="text-center">
-                      <div className="w-20 h-20 bg-gray-300 rounded-full mx-auto mb-4 animate-float" style={{ animationDelay: `${index * 0.5}s` }}></div>
-                      <h3 className="text-xl font-semibold text-gray-800 mb-2" data-testid={`text-member-name-${index}`}>{member.name}</h3>
-                      <p className="text-gray-600" data-testid={`text-member-role-${index}`}>{member.role}</p>
-                    </div>
-                  </Card>
-                ))}
-              </div>
-            </div>
-            
-          </div>
-        </div>
-      </div>
-
-      {/* Section 5: Upload */}
-      <div 
-        ref={el => sectionsRef.current[4] = el}
         className="min-h-screen bg-gradient-to-r from-gray-400 via-gray-300 to-gray-200 relative overflow-hidden flex items-center justify-center" 
         data-testid="upload-section"
       >
-        <FlowingLines sectionIndex={4} />
+        <FlowingLines sectionIndex={3} />
         
         <div className="relative z-10 text-center max-w-4xl mx-auto px-6">
-          <div className={`transition-all duration-1000 ${isVisible[4] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <div className={`transition-all duration-1000 ${isVisible[3] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
             <h2 
               className="text-4xl md:text-6xl font-bold text-gray-800 mb-8 drop-shadow-sm"
               data-testid="text-upload-title"
